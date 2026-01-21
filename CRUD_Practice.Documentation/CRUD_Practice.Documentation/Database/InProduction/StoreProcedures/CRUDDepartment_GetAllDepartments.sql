@@ -1,0 +1,10 @@
+DELIMITER //
+
+DROP PROCEDURE IF EXISTS GetAllDepartments;
+
+CREATE PROCEDURE GetAllDepartments()
+BEGIN
+    SELECT * FROM departments;
+END//
+
+DELIMITER ;

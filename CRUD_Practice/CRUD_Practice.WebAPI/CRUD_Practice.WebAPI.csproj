@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CRUD_Practice.Abstractions\CRUD_Practice.Abstractions.csproj" />
     <ProjectReference Include="..\CRUD_Practice.CacheManager\CRUD_Practice.CacheManagers.csproj" />
     <ProjectReference Include="..\CRUD_Practice.DBMySql\CRUD_Practice.DBMySql.csproj" />
     <ProjectReference Include="..\CRUD_Practice.Services\CRUD_Practice.Services.csproj" />

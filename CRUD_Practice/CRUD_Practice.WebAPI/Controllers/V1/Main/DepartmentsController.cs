@@ -8,7 +8,7 @@ namespace CRUD_Practice.WebAPI.Controllers.V1.Main
     public class DepartmentsController(IDepartmentsService departmentsService) : DepartmentsBaseController(departmentsService)
     {
         [HttpGet("_debug/temp-string")]
-        public async Task<IActionResult> GetTempString()
+        public new async Task<IActionResult> GetTempString()
         {
             return await base.GetTempString();
         }

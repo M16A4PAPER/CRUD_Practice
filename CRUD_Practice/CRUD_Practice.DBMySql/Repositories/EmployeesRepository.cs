@@ -12,7 +12,7 @@ namespace CRUD_Practice.DBMySql.Repositories
     {
         public async Task<int> AddEmployeeAsync(string name, int departmentId, decimal salary, DateTime joiningDate)
         {
-            using var cmd = new MySqlCommand(StoredProcedures.AddEmployee, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.AddEmployee, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -24,7 +24,7 @@ namespace CRUD_Practice.DBMySql.Repositories
             cmd.Parameters.AddWithValue("@p_joining_date", joiningDate);
 
             // OUT parameter
-            var employeeIdParam = new MySqlParameter("@p_employee_id", MySqlDbType.Int32)
+            MySqlParameter employeeIdParam = new MySqlParameter("@p_employee_id", MySqlDbType.Int32)
             {
                 Direction = ParameterDirection.Output
             };
@@ -37,7 +37,7 @@ namespace CRUD_Practice.DBMySql.Repositories
 
         public async Task<int> DeleteEmployeeAsync(int employeeId)
         {
-            using var cmd = new MySqlCommand(StoredProcedures.DeleteEmployee, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.DeleteEmployee, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -46,7 +46,7 @@ namespace CRUD_Practice.DBMySql.Repositories
             cmd.Parameters.AddWithValue("@p_id", employeeId);
 
             // OUT parameter
-            var deletedCountParam = new MySqlParameter("@p_deleted_count", MySqlDbType.Int32)
+            MySqlParameter deletedCountParam = new MySqlParameter("@p_deleted_count", MySqlDbType.Int32)
             {
                 Direction = ParameterDirection.Output
             };
@@ -59,14 +59,14 @@ namespace CRUD_Practice.DBMySql.Repositories
 
         public async Task<IEnumerable<Employee>> GetAllEmployeesAsync()
         {
-            using var cmd = new MySqlCommand(StoredProcedures.GetAllEmployees, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.GetAllEmployees, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            var employees = new List<Employee>();
+            List<Employee> employees = new List<Employee>();
 
-            using var reader = await cmd.ExecuteReaderAsync();
+            using MySqlDataReader reader = await cmd.ExecuteReaderAsync();
 
             while (await reader.ReadAsync())
             {
@@ -78,26 +78,26 @@ namespace CRUD_Practice.DBMySql.Repositories
 
         public async Task<Employee?> GetEmployeeByIdAsync(int employeeId)
         {
-            using var cmd = new MySqlCommand(StoredProcedures.GetEmployeeById, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.GetEmployeeById, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
             cmd.Parameters.AddWithValue("@p_id", employeeId);
 
-            using var reader = await cmd.ExecuteReaderAsync();
+            using MySqlDataReader reader = await cmd.ExecuteReaderAsync();
 
             if (await reader.ReadAsync())
             {
                 return EmployeeMapper.MapFromReader(reader);
             }
 
-            return null; // Not found
+            return null;
         }
 
         public async Task<int> UpdateEmployeeAsync(int employeeId, string name, int departmentId, decimal salary, DateTime joiningDate)
         {
-            using var cmd = new MySqlCommand(StoredProcedures.UpdateEmployee, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.UpdateEmployee, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -108,7 +108,7 @@ namespace CRUD_Practice.DBMySql.Repositories
             cmd.Parameters.AddWithValue("@p_salary", salary);
             cmd.Parameters.AddWithValue("@p_joining_date", joiningDate);
 
-            var affectedRows = await cmd.ExecuteNonQueryAsync();
+            int affectedRows = await cmd.ExecuteNonQueryAsync();
 
             return affectedRows;
         }

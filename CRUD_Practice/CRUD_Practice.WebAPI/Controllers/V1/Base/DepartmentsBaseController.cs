@@ -1,12 +1,26 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CRUD_Practice.Models.Interfaces.Services;
+using CRUD_Practice.Models.Responses;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Practice.WebAPI.Controllers.V1.Base
 {
-    public class DepartmentsBaseController : Controller
+    public abstract class DepartmentsBaseController : ControllerBase
     {
-        public IActionResult Index()
+        private readonly IDepartmentsService _departmentsService;
+
+        public DepartmentsBaseController(IDepartmentsService departmentsService)
         {
-            return View();
+            _departmentsService = departmentsService;
         }
+
+        protected async Task<IActionResult> GetTempString()
+        {
+            string stringFromService = await _departmentsService.GetTempString();
+
+            var response = ApiResponse<string>.SuccessResponse(stringFromService, "String retrieval successful");
+
+            return Ok(response);
+        }
+
     }
 }

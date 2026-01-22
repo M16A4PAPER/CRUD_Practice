@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CRUD_Practice.Models.Interfaces.Services;
+using CRUD_Practice.WebAPI.Controllers.V1.Base; 
+using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Practice.WebAPI.Controllers.V1.Main
 {
-    public class DepartmentsController : Controller
+    [Route("api/v1/departments")]
+    public class DepartmentsController(IDepartmentsService departmentsService) : DepartmentsBaseController(departmentsService)
     {
-        public IActionResult Index()
+        [HttpGet("_debug/temp-string")]
+        public async Task<IActionResult> GetTempString()
         {
-            return View();
+            return await base.GetTempString();
         }
     }
 }

@@ -1,12 +1,16 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CRUD_Practice.Models.Interfaces.Services;
+using CRUD_Practice.WebAPI.Controllers.V1.Base;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Practice.WebAPI.Controllers.V1.Main
 {
-    public class EmployeesController : Controller
+    [Route("api/v1/employees")] 
+    public class EmployeesController(IEmployeesService employeesService) : EmployeesBaseController(employeesService)
     {
-        public IActionResult Index()
+        [HttpGet("_debug/temp-string")]
+        public async Task<IActionResult> GetTempString()
         {
-            return View();
+            return await base.GetTempString();
         }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace CRUD_Practice.WebAPI.Controllers.V1.Base
 {
-    public class BaseController : Controller
+    public class BaseController : ControllerBase
     {
-        public IActionResult Index()
+        public BaseController()
         {
-            return View();
+
         }
     }
 }

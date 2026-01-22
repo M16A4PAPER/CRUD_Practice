@@ -113,5 +113,10 @@ namespace CRUD_Practice.DBMySql.Repositories
             return affectedRows;
         }
 
+        public Task<string> GetTempString()
+        {
+            return Task.FromResult("This is a temporary string from EmployeesRepository.");
+        }
+
     }
 }

@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CRUD_Practice.Models.Models
+﻿namespace CRUD_Practice.Models.Models
 {
     public class Department
     {
+        public int Id { get; init; }
+        public string Name { get; init; } = string.Empty;
+        public string? Location { get; init; }
     }
 }

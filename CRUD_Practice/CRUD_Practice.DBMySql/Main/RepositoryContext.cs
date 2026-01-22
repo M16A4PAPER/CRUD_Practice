@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MySqlConnector;
 
 namespace CRUD_Practice.DBMySql.Main
 {
-    public class RepositoryContext
+    public class RepositoryContext(MySqlConnection connection, MySqlTransaction? transaction, string encryptionKey)
     {
+        public MySqlConnection Connection { get; } = connection;
+        public MySqlTransaction? Transaction { get; } = transaction;
+        public string EncryptionKey { get; } = encryptionKey;
     }
 }

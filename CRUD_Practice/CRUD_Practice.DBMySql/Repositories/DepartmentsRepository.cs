@@ -12,7 +12,7 @@ namespace CRUD_Practice.DBMySql.Repositories
     {
         public async Task<int> AddDepartmentAsync(string name, string? location)
         {
-            using var cmd = new MySqlCommand(StoredProcedures.AddDepartment, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.AddDepartment, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -23,7 +23,7 @@ namespace CRUD_Practice.DBMySql.Repositories
                 location ?? (object)DBNull.Value);
 
             // OUT parameter
-            var departmentIdParam = new MySqlParameter("@p_department_id", MySqlDbType.Int32)
+            MySqlParameter departmentIdParam = new MySqlParameter("@p_department_id", MySqlDbType.Int32)
             {
                 Direction = ParameterDirection.Output
             };
@@ -36,7 +36,7 @@ namespace CRUD_Practice.DBMySql.Repositories
 
         public async Task<int> DeleteDepartmentAsync(int departmentId)
         {
-            using var cmd = new MySqlCommand(StoredProcedures.DeleteDepartment, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.DeleteDepartment, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -45,7 +45,7 @@ namespace CRUD_Practice.DBMySql.Repositories
             cmd.Parameters.AddWithValue("@p_id", departmentId);
 
             // OUT parameter
-            var deletedCountParam = new MySqlParameter("@p_deleted_count", MySqlDbType.Int32)
+            MySqlParameter deletedCountParam = new MySqlParameter("@p_deleted_count", MySqlDbType.Int32)
             {
                 Direction = ParameterDirection.Output
             };
@@ -58,14 +58,14 @@ namespace CRUD_Practice.DBMySql.Repositories
 
         public async Task<IEnumerable<Department>> GetAllDepartmentsAsync()
         {
-            using var cmd = new MySqlCommand(StoredProcedures.GetAllDepartments, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.GetAllDepartments, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
-            var departments = new List<Department>();
+            List<Department> departments = new List<Department>();
 
-            using var reader = await cmd.ExecuteReaderAsync();
+            using MySqlDataReader reader = await cmd.ExecuteReaderAsync();
 
             while (await reader.ReadAsync())
             {
@@ -77,14 +77,14 @@ namespace CRUD_Practice.DBMySql.Repositories
 
         public async Task<Department?> GetDepartmentByIdAsync(int departmentId)
         {
-            using var cmd = new MySqlCommand(StoredProcedures.GetDepartmentById, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.GetDepartmentById, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
 
             cmd.Parameters.AddWithValue("@p_id", departmentId);
 
-            using var reader = await cmd.ExecuteReaderAsync();
+            using MySqlDataReader reader = await cmd.ExecuteReaderAsync();
 
             if (await reader.ReadAsync())
             {
@@ -96,7 +96,7 @@ namespace CRUD_Practice.DBMySql.Repositories
 
         public async Task<int> UpdateDepartmentAsync(int departmentId, string name, string? location)
         {
-            using var cmd = new MySqlCommand(StoredProcedures.UpdateDepartment, _connection, _transaction)
+            using MySqlCommand cmd = new MySqlCommand(StoredProcedures.UpdateDepartment, _connection, _transaction)
             {
                 CommandType = CommandType.StoredProcedure
             };
@@ -106,14 +106,9 @@ namespace CRUD_Practice.DBMySql.Repositories
             cmd.Parameters.AddWithValue("@p_location",
                 location ?? (object)DBNull.Value);
 
-            var affectedRows = await cmd.ExecuteNonQueryAsync();
+            int affectedRows = await cmd.ExecuteNonQueryAsync();
 
             return affectedRows;
-        }
-
-        public Task<string> GetTempString()
-        {
-            return Task.FromResult("This is a temporary string from DepartmentsRepository.");
         }
 
     }

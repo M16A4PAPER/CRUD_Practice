@@ -1,6 +1,8 @@
 ﻿using CRUD_Practice.Models.Interfaces.Services;
 using CRUD_Practice.Models.Models;
 using CRUD_Practice.Models.Responses;
+using CRUD_Practice.WebAPI.Models.V1.Mappers;
+using CRUD_Practice.WebAPI.Models.V1.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Practice.WebAPI.Controllers.V1.Base
@@ -33,7 +35,10 @@ namespace CRUD_Practice.WebAPI.Controllers.V1.Base
         protected async Task<IActionResult> GetAllEmployeesAsync()
         {
             IEnumerable<Employee> employees = await _employeesService.GetAllEmployeesAsync();
-            ApiResponse<IEnumerable<Employee>> response = ApiResponse<IEnumerable<Employee>>.SuccessResponse(employees, "Employees retrieved successfully");
+
+            IEnumerable<EmployeeResponse> mappedEmployees = EmployeeResponseMapper.MapFromEmployees(employees);
+
+            ApiResponse<IEnumerable<EmployeeResponse>> response = ApiResponse<IEnumerable<EmployeeResponse>>.SuccessResponse(mappedEmployees, "Employees retrieved successfully");
 
             return Ok(response);
         }
@@ -41,7 +46,10 @@ namespace CRUD_Practice.WebAPI.Controllers.V1.Base
         protected async Task<IActionResult> GetEmployeeByIdAsync(int employeeId)
         {
             Employee employee = await _employeesService.GetEmployeeByIdAsync(employeeId);
-            ApiResponse<Employee> response = ApiResponse<Employee>.SuccessResponse(employee, "Employee retrieved successfully");
+
+            EmployeeResponse mappedEmployee = EmployeeResponseMapper.MapFromEmployee(employee);
+
+            ApiResponse<EmployeeResponse> response = ApiResponse<EmployeeResponse>.SuccessResponse(mappedEmployee, "Employee retrieved successfully");
 
             return Ok(response);
         }

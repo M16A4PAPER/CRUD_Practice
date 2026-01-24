@@ -2,11 +2,11 @@
 {
     public class Employee
     {
-        public int Id { get; init; }
-        public string Name { get; init; } = string.Empty;
-        public int? DepartmentId { get; init; }   // nullable for LEFT JOIN
-        public string? DepartmentName { get; init; }
-        public decimal Salary { get; init; }
-        public DateTime JoiningDate { get; init; }
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public int? DepartmentId { get; set; }   // nullable for LEFT JOIN
+        public string? DepartmentName { get; set; }
+        public decimal Salary { get; set; }
+        public DateTime JoiningDate { get; set; }
     }
 }

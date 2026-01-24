@@ -2,11 +2,11 @@
 {
     public class EmployeeResponse
     {
-        public int? employee_id { get; init; }
-        public string? employee_name { get; init; }
-        public int? department_id { get; init; }
-        public string? department_name { get; init; }
-        public decimal? employee_salary { get; init; }
-        public DateTime? join_date { get; init; }
+        public int? employee_id { get; set; }
+        public string? employee_name { get; set; }
+        public int? department_id { get; set; }
+        public string? department_name { get; set; }
+        public decimal? employee_salary { get; set; }
+        public DateTime? join_date { get; set; }
     }
 }

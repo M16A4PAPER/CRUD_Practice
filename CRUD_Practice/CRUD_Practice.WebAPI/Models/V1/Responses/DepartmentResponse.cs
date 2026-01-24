@@ -2,8 +2,8 @@
 {
     public class DepartmentResponse
     {
-        public int? department_id { get; init; }
-        public string? department_name { get; init; }
-        public string? department_location { get; init; }
+        public int? department_id { get; set; }
+        public string? department_name { get; set; }
+        public string? department_location { get; set; }
     }
 }

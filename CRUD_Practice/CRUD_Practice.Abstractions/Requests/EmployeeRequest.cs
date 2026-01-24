@@ -2,9 +2,9 @@
 {
     public class EmployeeRequest
     {
-        public string Name { get; init; } = null!;
-        public int DepartmentId { get; init; }
-        public decimal Salary { get; init; }
-        public DateTime JoiningDate { get; init; }
+        public string Name { get; set; } = null!;
+        public int DepartmentId { get; set; }
+        public decimal Salary { get; set; }
+        public DateTime JoiningDate { get; set; }
     }
 }

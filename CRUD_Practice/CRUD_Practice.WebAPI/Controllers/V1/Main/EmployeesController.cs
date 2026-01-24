@@ -1,12 +1,14 @@
 ﻿using CRUD_Practice.Abstractions.Requests;
 using CRUD_Practice.Models.Interfaces.Services;
 using CRUD_Practice.WebAPI.Controllers.V1.Base;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Practice.WebAPI.Controllers.V1.Main
 {
     [ApiController]
-    [Route("api/v1/employees")] 
+    [Route("api/v1/employees")]
+    [Authorize]
     public class EmployeesController(IEmployeesService employeesService) : EmployeesBaseController(employeesService)
     {
         [HttpPost]

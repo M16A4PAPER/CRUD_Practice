@@ -1,5 +1,5 @@
 ﻿using CRUD_Practice.Models.Models;
-using CRUD_Practice.WebAPI.Models.V1.Responses;
+using CRUD_Practice.Models.Responses;
 
 namespace CRUD_Practice.WebAPI.Models.V1.Mappers
 {

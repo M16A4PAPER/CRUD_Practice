@@ -1,4 +1,4 @@
-﻿namespace CRUD_Practice.WebAPI.Models.V1.Responses
+﻿namespace CRUD_Practice.Models.Responses
 {
     public class EmployeeResponse
     {

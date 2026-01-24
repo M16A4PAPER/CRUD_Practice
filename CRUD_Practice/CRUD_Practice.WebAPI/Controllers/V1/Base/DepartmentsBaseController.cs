@@ -2,7 +2,6 @@
 using CRUD_Practice.Models.Models;
 using CRUD_Practice.Models.Responses;
 using CRUD_Practice.WebAPI.Models.V1.Mappers;
-using CRUD_Practice.WebAPI.Models.V1.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CRUD_Practice.WebAPI.Controllers.V1.Base

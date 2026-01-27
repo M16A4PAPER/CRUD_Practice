@@ -7,10 +7,12 @@ using CRUD_Practice.Models.Interfaces.Services;
 using CRUD_Practice.Models.Models;
 using CRUD_Practice.Services.Auth;
 using CRUD_Practice.Services.Services;
+using CRUD_Practice.WebAPI.Middleware;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog.Events;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.Json;
@@ -20,7 +22,6 @@ var builder = WebApplication.CreateBuilder(args);
 Log.Logger = new LoggerConfiguration()
                     .ReadFrom.Configuration(builder.Configuration)
                     .Enrich.FromLogContext()
-                    .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj} [{RequestMethod} {RequestPath} User:{UserId} IP:{ClientIP}] {Exception}{NewLine}")
                     .CreateLogger();
 
 builder.Host.UseSerilog();
@@ -159,7 +160,6 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -172,6 +172,9 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseMiddleware<SerilogRequestEnricherMiddleware>();
+app.UseSerilogRequestLogging();
 
 app.MapControllers();
 
